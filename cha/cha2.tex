@@ -1,0 +1,357 @@
+\chapter{理论力学}
+    \begin{introduction}
+        \item 广义坐标和约束
+        \item 完整理想系统的虚功原理
+        \item 达朗贝尔原理
+        \item 两个公式的证明
+        \item 基本形式的拉格朗日方程
+        \item 从拉格朗日函数中获取运动积分
+        \item 维里定理
+        \item 勒让德变换和哈密顿函数
+        \item 哈密顿正则方程
+        \item 泊松括号和泊松定理
+        \item 相空间
+        \item 哈密顿原理
+        \item 变分问题的欧拉-拉格朗日方程
+        \item 正则变换
+        \item 作用量作为积分上限的函数
+        \item 哈密顿-雅可比方程
+        \item 从哈密顿-雅可比方程导出薛定谔方程
+    \end{introduction}
+
+    \section{广义坐标、约束}
+    广义坐标是用来描述系统演化的一组独立变量，记作$q_1,q_2,\cdots,q_s$（其中$s$是系统的自由度，也就是可以独立变化的广义坐标的数目）。广义速度是独立于广义坐标的另一组变量。在选定演化的轨道之后，广义坐标和广义速度之间具有导数关系：广义速度$v_i=\dot{q}_i$。
+
+    约束是强加在系统上的一类事物，限制系统的演化规律。比如两个质点之间用刚性杆相连接，那么刚性杆就是一种约束。约束通常用包含广义坐标和广义速度的等式或者不等式来描述。如果是等式，这种约束就叫做不可解（解脱之意）约束；如果用不等式来描述，那么就叫做可解约束。按照是否与是时间相关，可以分为定常约束（不与时间相关）和非定常约束（与时间相关）。按照变量的类型分为几何约束（约束位置）和微分约束（约束速度）。按照是否能显式地积分为几何约束，分为可积微分约束和不可积微分约束。将上述各种类别进行整合可以得到以下两种统筹分类：完整约束和非完整约束。完整约束包括全部的几何约束和全部的可积微分约束；除了完整约束外其他所有约束统称非完整约束。
+
+    在牛顿力学中，一种约束就对应了一种约束力，按照约束力所沿方向可分为理想约束和非理想约束：理想约束的约束力垂直于约束；非理想约束的约束力不与约束正交。
+    \begin{example}
+        为下列约束进行分类：
+        \begin{enumerate}
+            \item 圆柱在光滑水平面上纯滚动；
+            \item 固定悬点上的单摆；
+            \item 匀速上升中的电梯。
+        \end{enumerate}
+    \end{example}
+    \begin{solution}
+        \begin{enumerate}
+            \item 完整理想定常约束；
+            \item 完整理想定常约束；
+            \item 完整理想非定常约束。
+        \end{enumerate}
+    \end{solution}
+
+    \section{虚功原理}
+        \subsection{基本形式}
+        虚功原理在不同的力学学科中有不同的表述，在理论力学中表述为如下：受到完整理想约束的力学系的全部主动力虚功之和为零。即
+        \begin{equation}
+            \label{虚功原理基本形式}
+            \sum_{i=1}^{n}\bm{F}_i\cdot\delta\bm{r}_i=0
+        \end{equation}
+
+        \subsection{广义坐标形式}
+        系统的位置$\bm{r}_i$是全部广义坐标$q_j,j=1,2\cdots,s$和时间$t$的函数$\bm{r}_i=\bm{r}_i(q_j,t)$。在平衡态附近取泰勒展开一阶项得到$\bm{r}_i$的变分：
+        \begin{equation}
+            \label{eq:1}
+            \delta\bm{r}_i=\sum_{j=1}^{s}\pdv{\bm{r}_i}{q_j}\delta q_j
+        \end{equation}
+        代入\ref{虚功原理基本形式}可得
+        \begin{equation}
+            \label{虚功原理广义坐标形式}
+            \sum_{i=1}^{n}\sum_{j=1}^{s}\bm{F}_i\cdot\pdv{\bm{r}_i}{q_j}\delta q_j = 0
+        \end{equation}
+        引入广义力$Y_j$：
+        \begin{equation}
+            \label{eq:2}
+            Y_j = \sum_{i=1}^{n}\bm{F}_i\cdot\pdv{\bm{r}_i}{q_j}
+        \end{equation}
+        则\ref{虚功原理广义坐标形式}可以写为
+        \begin{equation}
+            \label{eq:3}
+            \sum_{j=1}^{s}Y_j\delta q_j = 0
+        \end{equation}
+        \ref{eq:3}说明了完整理想系统处在平衡态的充分必要条件：全部广义力虚功之和为零。
+    
+        
+        \section{达朗贝尔原理}
+        数学上就是一步移项操作，把牛顿第二定律$\bm{F}=m\bm{a}$改写为$\bm{F}-m\bm{a}=\bm{0}$。但是背后的物理思想很重要：任何动力学问题都可以等价转为一个静力学问题来处理。达朗贝尔原理连接了动力学和静力学，虚功原理给出了处理静力学问题的一般性方法。在下一节我们将结合这两个原理导出拉格朗日力学的基本微分方程。不过在那之前我们先证明两个微积分公式。
+        
+        \section{两个公式的证明}
+        本节要证明的公式是这两个：
+        \begin{theorem}\label{thm:两个公式}
+            对于物理中用到的函数而言，有以下两个公式成立：
+            \begin{equation}
+                \label{equ:两个公式}
+                \dv{t}(\pdv{\bm{r}_i}{q_l})=\pdv{\dot{\bm{r}}_i}{q_l} \quad \pdv{\bm{r}_i}{q_l}=\pdv{\dot{\bm{r}}_i}{\dot{q}_l}
+            \end{equation}
+        \end{theorem}
+        \begin{proof}
+            对第一个公式，我们有
+            \[
+            \dv{t}(\pdv{\bm{r}}{q_l})=\pdv[2]{\bm{r}_i}{t}{q_l}+\sum_{j=1}^{s}\pdv[2]{\bm{r}_i}{t}{q_j}\dot{q}_j
+            \]
+            对右边有
+            \[
+            \pdv{q_l}(\pdv{\bm{r}_i}{t}+\sum_{j=1}^{s}\pdv{\bm{r}_i}{q_j}\dot{q}_j)=\pdv[2]{\bm{r}_i}{q_l}{t}+\sum_{j=1}^{s}\pdv[2]{\bm{r}_i}{q_j}{t}\dot{q}_j
+            \]
+            物理上考虑的函数都至少是二阶可微的，因此
+            \[
+            \dv{t}(\pdv{\bm{r}_i}{q_l})=\pdv{\dot{\bm{r}}_i}{q_l}
+            \]
+
+            对第二个公式的右侧有
+            \[
+            \pdv{\dot{\bm{r}}_i}{\dot{q}_l}=\pdv{\dot{q}_l}(\pdv{\bm{r}_i}{t}+\sum_{j=1}^{s}\pdv{\bm{r}_i}{q_j}\dot{q}_j)=\pdv{\bm{r}_i}{q_l}
+            \]
+        \end{proof}
+        
+        \section{基本形式的拉格朗日方程}
+        在达朗贝尔原理两边点乘虚位移$\delta\bm{r}_i$并求和得到：
+        \begin{equation}
+            \label{eq:4}
+            \sum_{i=1}^{n}\bm{F}_i\cdot\delta\bm{r}_i-m_i\ddot{\bm{r}}_i\cdot\delta\bm{r}_i=0
+        \end{equation}
+        以\ref{eq:1}代入\ref{eq:4}得到
+        \begin{equation}
+            \label{eq:5}
+            \sum_{i=1}^{n}\sum_{j=1}^{s}\left(\bm{F}_i\cdot\pdv{\bm{r}_i}{q_j}-m_i\ddot{\bm{r}}_i\cdot\pdv{\bm{r}_i}{q_j}\right)\delta q_j=0
+        \end{equation}
+        先考虑对其中一个广义坐标$q_l$进行推导，
+        \begin{equation}
+            \label{eq:6}
+            Y_l - \sum_{i=1}^{n}m_i\ddot{\bm{r}}_i\cdot\pdv{\bm{r}_i}{q_l} = Y_l - \dv{t}(\sum_{i=1}^{n}m_i\dot{\bm{r}}_i\cdot\pdv{\bm{r}_i}{q_l}) = 0
+        \end{equation}
+        利用上一节推导的两个公式可得
+        \begin{equation}
+            \label{eq:7}
+            \dv{t}(\pdv{T}{\dot{q}_l})-\pdv{T}{q_l}=Y_l \quad l=1,2,\cdots,s
+        \end{equation}
+        上式即为基本形式的拉格朗日方程。
+
+        我们发现一件令牛顿力学匪夷所思的事情：对于一个确定的力学系来说，约束越少方程越多，但是约束越多方程反而越少。这意味着在处理复杂力学问题时拉格朗日力学将拥有牛顿力学不可比拟的巨大优势。最基本的，我们不用额外分出精力去处理那些恼人的约束力了。优势还不止这一点，尽管我们在推导\ref{eq:7}的时候采用了虚功原理，而虚功原理要求系统的约束必须是完整理想约束，但是拉格朗日方程本身并不受制于虚功原理。她是普适的并且可以由另外一条物理学原理（也就是后面的哈密顿原理）直接导出。
+
+            \subsection{拉格朗日函数及其性质}
+            对于\ref{eq:7}，如果引入广义势能$U(q_j,\dot{q}_j,t)$
+            \[
+            U=\sum_{l=1}^{s}\dv{t}(\pdv{Y_l}{\dot{q}_l})-\pdv{Y_l}{q_l}
+            \]
+            那么就可以引入系统的一个特性函数$L=T-U$，同时\ref{eq:7}可以重写为
+            \begin{equation}
+                \label{eq:8}
+                \dv{t}(\pdv{L}{\dot{q}_l})-\pdv{L}{q_l} = 0 \quad l=1,2,\cdots,s
+            \end{equation}
+            \ref{eq:8}和\ref{eq:7}等价，但是不管是实际应用还是数学求解，\ref{eq:8}都是\ref{eq:7}无法匹敌的。毕竟\ref{eq:8}是齐次方程，在求解难度上就远远低于\ref{eq:7}了，同时特性函数$L$给了我们一个看待力学问题的一个新视角：原来我们不必那么麻烦地去分析每一个组分的受力情况，只需要写出整体的特性函数，再随便偏导几下，就可以得到系统的运动规律满足的微分方程组，只要选择好广义坐标，那么接下来的过程全部都是机械化的。
+
+            这个特性函数$L$最早由拉格朗日在其著作《分析力学》中引入，因此得名拉格朗日函数。
+
+            我们给出拉格朗日函数的几条重要性质：
+            \begin{enumerate}
+                \item 可加性：对于一个力学系，如果各组分间的相互作用可忽略，则力学系的拉格朗日函数$L$就是各个部分的拉格朗日函数$L_i$的线性叠加；
+                \item 齐次性：设力学系的拉格朗日函数为$L$，那么$L$的任意非零倍数也是力学系的拉格朗日函数；
+                \item 不唯一性：同一力学系可以有不同形式的拉格朗日函数，但是任意两个拉格朗日函数$L_1,L_2$之间只能相差任意函数$f(q_j,t)$对时间的导数。
+            \end{enumerate}
+            
+            我们只证明前面两条，第三条留在哈密顿原理一节进行证明。
+            \begin{proof}
+                第一条自不必多说，因为拉格朗日方程在数学上就是一个二阶线性微分方程，$L_1+L_2$要满足拉格朗日方程，就意味着$L_1,L_2$都要分别满足拉格朗日方程，因此可加性是成立的。
+                
+                第二条可由微分运算的线性性质直接导出，不再叙述。
+                
+                对第三条，我们不在这里进行证明，但是我们给出一个简单实例来证明拉格朗日函数确实是不唯一的。
+
+                对于一维谐振子，她的拉格朗日函数
+                \[
+                L=\frac{m\dot{x}^2}{2}-\frac{kx^2}{2}
+                \]
+                现在引入一个函数\footnote{其实熟悉普物教材的读者一眼就会发现这就是一维的伽利略变换。}$f(x,t)=x-ut$。定义另一个拉格朗日函数$L'=L+\dot{f}(x,t)$，同时代入\ref{eq:8}可得
+                \[
+                \underbrace{m\ddot{x}+kx=0}_{L} \quad \underbrace{m\ddot{x}+kx=0}_{L+\dot{f}}
+                \]
+                因此不唯一性成立。\footnote{读者可以试着思考一下不唯一性的物理意义是什么。}
+            \end{proof}
+        
+        \section{从拉格朗日函数中获取运动积分}
+        所谓运动积分，就是指在系统演化的过程中始终保持为定值的函数$F(q_j,\dot{q}_j)$，并且这个定值只与系统的初始状态相关，这样的函数就叫做系统的运动积分（或者守恒量）。物理学的基本目的之一就是寻找系统的运动积分。对于牛顿力学，这三个运动积分是最重要的：动量，角动量和机械能。而在拉格朗日力学中，运动积分的含义被扩展了，运动积分不仅仅只是动量、能量和角动量了。对于一个自由度为$s$的力学系，她最多拥有$2s-1$个运动积分。这可以从下面的论述中很容易知晓：
+        \begin{proof}
+            考虑运动方程
+            \[
+            q_j=q_j(t,C_1,C_2,\cdots,C_{2s}) \quad j=1,2,\cdots,s
+            \]
+            从中任选一个积分常数$C_i$作为时间$t$的可加常数$t_0$，则可以写为
+            \[
+            q_j=q_j(t+t_0,C_1,\cdots,C_{i-1},C_{i+1},\cdots,C_{2s-1}) \quad j=1,2,\cdots,s
+            \]
+            联立上述$2s$个方程（对时间求导还可以得到$s$个方程）可以解出$2s-1$个函数$f_l(q_j,\dot{q}_j)=C_l,l=1,2\cdots,2s-1$。我们注意到这些函数的值都保持不变，并且都是广义坐标和广义速度的函数。因此这$2s-1$个函数都是系统的运动积分。
+        \end{proof}
+
+        虽然一个系统的运动积分可以有很多，但是不是所有的运动积分都是很有意义的，有一些运动积分源自于我们所在世界的各种对称性，这样的运动积分能带给我们对这个世界的一些更为深刻的洞见。
+
+            \subsection{广义动量}
+            考虑拉格朗日方程\ref{eq:8}，如果$L$不显含某个广义坐标$q_\alpha$，那么对应的就有一个运动积分
+            \begin{equation}
+                \label{广义动量}
+                \pdv{L}{\dot{q}_\alpha}=C_\alpha
+            \end{equation}
+
+            这个运动积分具有牛顿力学中的动量的量纲。因此我们叫她为广义动量。并记作$p_\alpha$。于是\ref{eq:8}还可以写为
+            \[
+            \dot{p}_l=\pdv{L}{q_l} \quad l=1,2,\cdots,s
+            \]
+
+            如果广义力是保守的，那么我们立刻发现上式正是牛顿第二定律的微分形式！
+            
+            \subsection{广义能量}
+            拉格朗日函数对时间求导可得
+            \begin{equation}
+                \label{eq:9}
+                \dv{L}{t}=\pdv{L}{t}+\sum_{i=1}^{s}\pdv{L}{q_i}\dot{q}_i+\pdv{L}{\dot{q}_i}\ddot{q}_i
+            \end{equation}
+            逆用乘积导数公式可得
+            \begin{equation}
+                \label{eq:10}
+                \dv{t}(\sum_{i=1}^{s}p_i\dot{q}_i - L) = \pdv{L}{t}
+            \end{equation}
+            如果$L$不显含时间，那么函数$\sum_{i=1}^{s}p_i\dot{q}_i - L$就是一个运动积分。这个积分具有能量的量纲。我们叫她广义能量，记作$H$。
+
+            那么问题来了：$H$到底是什么形式的能量呢？
+
+            为了解答这个问题，我们先看看一些具体的例子。
+
+            \begin{example}
+                写出一维谐振子的广义能量$H$。
+            \end{example}
+            \begin{solution}
+                拉格朗日函数$L=(m\dot{x}^2-kx^2)/2$。因此广义动量为
+                \[
+                p_x=\pdv{L}{\dot{x}}=m\dot{x}
+                \]
+                
+                正是牛顿力学中的动量！这是巧合吗？这其实不是巧合。我们接着往下写，那么
+                \[
+                H = \dot{x}p_x - L = \frac{1}{2}m\dot{x}^2 + \frac{1}{2}kx^2
+                \]
+                竟然就是牛顿力学中的机械能？！事实上我们将在下面证明这一点：保守系统的广义能量$H=T+U$就是系统的机械能。
+            \end{solution}
+
+            \begin{lemma}[齐次函数的欧拉定理]
+                设$f(x_1,x_2,\cdots,x_n)$是$k$齐次函数，也就是对参数$a$，$f(ax_1,ax_2,\cdots,ax_n)=a^kf(x_1,x_2,\cdots,x_n)$。那么必然有
+                \[
+                \sum_{i=1}^{n}x_i\pdv{f}{x_i} = kf
+                \]
+            \end{lemma}
+            \begin{proof}
+                在定义两侧对$a$求导可得
+                \[
+                \sum_{i=1}^{s}x_i\pdv{f}{ax_i}=na^{n-1}f
+                \]
+                令$a=1$，证毕。
+            \end{proof}
+
+            接下来利用广义动量$p_i$的定义：
+            \begin{equation}
+                p_i = \pdv{L}{\dot{q}_i}
+            \end{equation}
+            考虑保守势场，于是\footnote{这里我们把动能定义为广义速度的二次齐次函数。}
+            \begin{equation}
+                p_i = \pdv{T}{\dot{q}_i}
+            \end{equation}
+            于是广义能量$H$就可以写为
+            \begin{equation}
+                H = \sum_{i=1}^{s}\pdv{T}{\dot{q}_i}\dot{q}_i - L = 2T-T+U = T+U
+            \end{equation}
+            
+            于是我们证明了保守势场中系统的广义能量$H$就是系统的机械能。
+
+        \section{维里定理}
+        维里定理是一个旧称，并且你无法从定理的名称看出定理的主要内容。其实维里定理说了一件很简单的事情，周期运动（或非周期运动）的力学系的总能量对时间的平均值为零。
+
+        定义标量函数$G=\sum_{i=1}^{n}\bm{r}_i\cdot\bm{p}_i$，其中$\bm{p}_i$是第$i$个粒子的动量，对时间求导
+        \begin{equation}
+            \dv{G}{t}=\sum_{i=1}^{n}\dot{\bm{r}}_i\cdot\bm{p}_i+\bm{r}_i\cdot\dot{\bm{p}}_i = 2T+\sum_{i=1}^{n}\bm{r}_i\cdot\bm{F}_i
+        \end{equation}
+
+        然后对时间求平均可得：
+        \begin{equation}
+            \average{\dv{G}{t}} = \frac{G(t_1+T)-G(t_1)}{T}
+        \end{equation}
+        对于周期运动，这个平均值为零。对于非周期运动，将其视作周期无限长的周期运动，那么上述论断依旧成立。故得到维里定理：
+        \begin{equation}
+            \label{eq:维里定理}
+            \average{T}=-\frac{1}{2}\average{\sum_{i=1}^{n}\bm{r}_i\cdot\bm{F}_i}
+        \end{equation}
+        如果每一个$\bm{F}_i$都是保守的，那么就可以引入一个对系统各处普适的势能$U=U_1+U_2+\cdots+U_n$。于是可以写为
+        \begin{equation}
+            \label{eq:维里定理2}
+            \average{T}=\frac{1}{2}\average{\sum_{i=1}^{n}\bm{r}_i\cdot\nabla_iU}
+        \end{equation}
+        再进一步，如果势能是一个$N$次齐次函数，那么上式还可以进一步写为$\average{T}=(N/2)\average{U}$。
+
+        \section{勒让德变换，哈密顿函数}
+        勒让德变换可以用于替换函数的自变量。设有一个$f(x)$，对其微分$\dd{f}=f'(x)\dd{x}$，令$u=f'(x)$，并逆用乘积求导法则可得
+        \begin{equation}
+            \dd{f}=\dd{(ux)}-x\dd{u}
+        \end{equation}
+        引入另一个函数$g(u)=ux-f(x)$。并对其微分可得
+        \begin{equation}
+            \dd{g}=g'(u)\dd{u}
+        \end{equation}
+        比对上述两式，可得
+        \begin{equation}
+            g'(u)=x
+        \end{equation}
+
+        同样，$f(x)$也可以用$g(u)$表示出来，也就是$f(x)=ux-g(u)$。这意味着$f(x)$和$g(u)$所包含的信息是完全相同的。
+
+        虽然我们可以写出系统的拉格朗日函数，但是动能减去势能还是太过抽象了，并且寻找系统的运动积分严重依赖于我们所选取的广义坐标。我们需要寻找另一个特性函数，这个函数能让我们在写出她的那一刻就能知晓系统的所有运动积分。这便是哈密顿函数$H$（Hamiltonian）。
+
+        考虑拉格朗日函数的全微分
+        \begin{equation}
+            \dd{L}=\pdv{L}{t}\dd{t} + \sum_{i=1}^{s}\pdv{L}{q_i}\dd{q_i}+\pdv{L}{\dot{q}_i}\dd{\dot{q}_i}=\pdv{L}{t}\dd{t} + \sum_{i=1}^{s}\dot{p}_i\dd{q_i}+p_i\dd{\dot{q}_i}
+        \end{equation}
+        
+        定义哈密顿函数
+        \begin{equation}
+            H=\sum_{i=1}^{s}p_i\dot{q}_i - L
+        \end{equation}
+        并对$H$求全微分
+        \begin{equation}
+            \label{哈密顿函数}
+            \dd{H}=\pdv{H}{t}\dd{t}+\sum_{i=1}^{s}\pdv{H}{q_i}\dd{q_i}+\pdv{H}{p_i}\dd{p_i}
+        \end{equation}
+        比对可以得到
+        \begin{equation}
+            \label{正则方程}
+            \boxed{\dot{p}_i=\pdv{H}{q_i} \quad \dot{q}_i=-\pdv{H}{q_i}} \quad \pdv{H}{t}=-\pdv{L}{t} \quad i=1,2,\cdots,s
+        \end{equation}
+
+        框内的方程组正是哈密顿正则方程。
+
+        \section{泊松括号、泊松定理}
+        对于一个力学量$f=f(q_i,p_i,t)$，对时间求导还可以得到
+        \begin{equation}
+            \dv{f}{t}=\pdv{f}{t}+\sum_{i=1}^{s}\pdv{f}{q_i}\dot{q}_i+\pdv{f}{p_i}\dot{p}_i
+        \end{equation}
+        以哈密顿正则方程代入上式可得
+        \begin{equation}
+            \dv{f}{t}=\pdv{f}{t}+\sum_{i=1}^{s}\pdv{f}{q_i}\pdv{H}{p_i}-\pdv{f}{p_i}\pdv{H}{q_i}
+        \end{equation}
+
+        \begin{definition}[泊松括号]
+            设$f(q_i,p_i,t),g(q_i,p_i,t)$是两个力学量，那么$f,g$的泊松括号$[f,g]$就定义为
+            \[
+            [f,g]=\sum_{i=1}^{s}\pdv{f}{q_i}\pdv{g}{p_i}-\pdv{f}{p_i}\pdv{g}{q_i}
+            \]
+        \end{definition}
+
+        于是上式就可以写为
+        \begin{equation}
+            \dv{f}{t}=\pdv{f}{t}+[f,H]
+        \end{equation}
+        
+        若力学量$f$不显含时间，那么$f(q_i,p_i)$可以作为系统的某个运动积分的充分必要条件就是$[f,H]=0$（这被称作$f$和$H$对易）。
+
+        泊松括号有一些运算性质必须要注意（实际上是Lie括号的共性）。
+        \begin{enumerate}
+            \item $[f,g]=-[g,f]$；
+            \item $[f,[g,h]]=[f,g]h+g[f,h]$；
+        \end{enumerate}
